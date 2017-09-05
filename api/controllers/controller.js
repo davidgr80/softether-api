@@ -25,7 +25,7 @@ exports.sessions =  function (req,res) {
   if (req.headers.token != token) return res.sendStatus(401);
   var hub = req.headers.hubname;
  
-  tools.getConnections(hub, function(err,data) {
+  tools.sessionList(hub, function(err,data) {
     if (err) {
       console.log("Error code: " + err.code);
       res.sendStatus(400);
@@ -38,6 +38,26 @@ exports.sessions =  function (req,res) {
   });
 };
 
+exports.iptable =  function (req,res) {
+    if (!req.body) {
+        return res.sendStatus(400);
+    }
+    console.log("Checking IpTable...");
+    if (req.headers.token != token) return res.sendStatus(401);
+    var hub = req.headers.hubname;
+
+    tools.IpTable(hub, function(err,data) {
+        if (err) {
+            console.log("Error code: " + err.code);
+            res.sendStatus(400);
+            res.end();
+        }
+        else {
+            res.send(data);
+            res.end();
+        }
+    });
+};
 
 exports.all_users = function (req,res) { 
   if (!req.body) return res.sendStatus(400);

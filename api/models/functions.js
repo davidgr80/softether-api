@@ -43,7 +43,6 @@ module.exports = {
   },  
 
   sessionList: function(hub, callback) {
-
     exec(CONNECTION + hub + " /csv /cmd SessionList", function(err,data) {
       if (err) {
         callback(err);
